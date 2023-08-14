@@ -1,0 +1,68 @@
+openapi: 3.0.0
+info:
+  title: Instagram User Post API's.
+  description: In this Instagram feature these api's handle all the post related operations of Insta application.
+  version: 1.1.3
+servers:
+  - url: http://localhost:5003
+    description: local host uses the post number 5003.
+components:
+  schemas:
+    post:
+      type: object
+      properties:
+        url:
+          type: string
+          example: http://www.naturepost.com
+        user_id:
+          type: integer
+          example: 10  
+      required:  
+          user_id
+    recentcomment:
+      type: object
+      properties: 
+        photo_id:
+          type: integer
+          example: 20
+
+
+
+paths:
+  /post/createpost:
+    post:
+      summary: This API is used to Create new post on Instagram.
+      description: User can creste new post by upload pic.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post'
+      responses:
+        '201':
+          description: Created.
+        '406':
+          description: Fields Value not accepted.
+        '500':
+          description: Inernal server error.          
+  /post/recentcomment:
+    post:
+      summary: This API is used to display recent comment on post in Instagram.
+      description: User can see recent 3 comments on post.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/recentcomment'
+      responses:
+        '200':
+          description: Success.
+        '401':
+          description: value not accepted.
+        '500':
+          description: Inernal server error.      
+             
+
+          

@@ -1,0 +1,102 @@
+openapi: 3.0.0
+info:
+  title: Instagram User Post API's.
+  description: In this Instagram feature these api's handle all the post related operations of Insta application.
+  version: 1.1.3
+servers:
+  - url: http://localhost:5003
+    description: local host uses the post number 5003.
+components:
+  schemas:
+    comment:
+      type: object
+      properties:
+        contents:
+          type: string
+          example: write somenthing what you feel about post.
+        user_id:
+          type: integer
+          example: 10  
+        photo_id:
+          type: integer
+          example: 25  
+      required:  
+          user_id
+paths:
+  /comment/createcomment:
+    post:
+      summary: This API is used to Create new comment on Instagram.
+      description: User can create new comment by write something.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/comment'
+      responses:
+        '201':
+          description: Created.
+        '406':
+          description: Fields Value not accepted.
+        '500':
+          description: Inernal server error.          
+  /comment/deletecomment/{cid}:
+    get:
+      summary: This API is used to display recent comment on post in Instagram.
+      description: User can see recent 3 comments on post.
+      parameters:
+        - name: cid
+          in: path
+          description: Comment ID
+          required: true
+          schema:
+            type: integer
+            example: 122
+            format: int64       
+      responses:
+        '200':
+          description: Success.
+        '401':
+          description: value not accepted.
+        '500':
+          description: Inernal server error.      
+  /comment/listout:
+    get:
+      summary: This API is used to display recent comment on post in Instagram.
+      description: User can see recent 3 comments on post.  
+      responses:
+        '200':
+          description: Success.
+        '401':
+          description: value not accepted.
+        '500':
+          description: Inernal server error.               
+  /comment/createcomment/{like}/{cid}:
+    get:
+      summary: This API is used to display recent comment on post in Instagram.
+      description: User can see recent 3 comments on post.
+      parameters:
+        - name: cid
+          in: path
+          description: Comment ID
+          required: true
+          schema:
+            type: integer
+            example: 122
+            format: int64
+        - name: like
+          in: path
+          description: boolean value
+          required: true
+          schema:
+            type: boolean
+            example: true
+            format: int64
+      responses:
+        '200':
+          description: Success.
+        '401':
+          description: value not accepted.
+        '500':
+          description: Inernal server error.  
+          
